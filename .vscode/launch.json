@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-MsrecipeApplication<msrecipe>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.palmirinha.recipe.MsrecipeApplication",
+      "projectName": "msrecipe",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
