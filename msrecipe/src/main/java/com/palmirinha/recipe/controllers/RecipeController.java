@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.palmirinha.recipe.models.Recipe;
+import com.palmirinha.recipe.models.dto.IngredientRecipeDTO;
+import com.palmirinha.recipe.models.dto.RecipeDTO;
+import com.palmirinha.recipe.models.mappers.RecipeMapper;
+import com.palmirinha.recipe.services.IngredientRecipeService;
 import com.palmirinha.recipe.services.RecipeService;
 
 @RestController
@@ -21,6 +25,9 @@ public class RecipeController {
     @Autowired
     private RecipeService recipeService;
 
+    @Autowired
+    private IngredientRecipeService ingredientRecipeService;
+
     @GetMapping
     public ResponseEntity<List<Recipe>> getAllrecipes() {
         List<Recipe> recipes = recipeService.getAllRecipes();
@@ -28,9 +35,18 @@ public class RecipeController {
     }
 
     @PostMapping
-    public ResponseEntity<Recipe> saveRecipe(@RequestBody Recipe RecipeDTO) {
-        Recipe recipe = recipeService.saveRecipe(RecipeDTO);
+    public ResponseEntity<Recipe> saveRecipe(@RequestBody RecipeDTO RecipeDTO) {
+
+        Recipe recipe = RecipeMapper.fromDTO(RecipeDTO);
+        recipeService.saveRecipe(recipe);
         return ResponseEntity.ok(recipe);
+    }
+
+
+    @PostMapping("/add-ingredient")
+    public ResponseEntity<Void> addIngredient(@RequestBody IngredientRecipeDTO ingredientRecipe) {
+        ingredientRecipeService.saveIngredientRecipe(ingredientRecipe);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("{id}")

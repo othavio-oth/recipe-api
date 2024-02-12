@@ -39,4 +39,12 @@ public class Recipe {
 	@OneToMany(mappedBy = "recipe")
 	private List<IngredientRecipe> ingredientsRecipes;
 
+	public Recipe(String name, Duration timeToPrepare, String prepareMode) {
+		this.name = name;
+		this.timeToPrepare = timeToPrepare;
+		this.prepareMode = prepareMode;
+	}
+
+	
+
 }
